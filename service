@@ -1,0 +1,24 @@
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+
+declare var webkitSpeechRecognition: any;
+
+@Injectable({ providedIn: 'root' })
+export class SpeechRecognitionService {
+  private recognition = new webkitSpeechRecognition();
+  public speechOutput = new Subject<string>();
+
+  constructor() {
+    this.recognition.continuous = false;
+    this.recognition.lang = 'en-US';
+
+    this.recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript.trim();
+      this.speechOutput.next(transcript);
+    };
+  }
+
+  startListening() { this.recognition.start(); }
+  stopListening() { this.recognition.stop(); }
+}
+
