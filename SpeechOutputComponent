@@ -1,0 +1,15 @@
+import { Component } from '@angular/core';
+import { SpeechSynthesisService } from './speech-synthesis.service';
+
+@Component({
+  selector: 'app-speech-output',
+  template: `<input [(ngModel)]="text" placeholder="Enter text" />
+             <button (click)="speak()">🗣️ Speak</button>`,
+})
+export class SpeechOutputComponent {
+  text = '';
+
+  constructor(private speechService: SpeechSynthesisService) {}
+
+  speak() { this.speechService.speak(this.text); }
+}
