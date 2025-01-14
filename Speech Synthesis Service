@@ -1,0 +1,11 @@
+import { Injectable } from '@angular/core';
+
+@Injectable({ providedIn: 'root' })
+export class SpeechSynthesisService {
+  private synth = window.speechSynthesis;
+
+  speak(text: string) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    this.synth.speak(utterance);
+  }
+}
